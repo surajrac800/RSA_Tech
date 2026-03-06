@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { Target, Award, Users, Zap, Briefcase, Sparkles } from "lucide-react";
 import leaderPhoto from "@/assets/images/leader.png";
+import cofounder from "@/assets/images/Ashish.jpeg";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -48,7 +49,7 @@ const leadership = [
     role: "Co-Founder",
     bio: "Ashish brings a strong focus on delivery, operations and client success. He ensures that every website, app and campaign launched by RSA Tech Softwares is reliable, on time and aligned with measurable outcomes.",
     focus: ["Delivery & Operations", "Client Success", "Process Improvement"],
-    image: "/team/ashish-jaiswal.jpg",
+    image: cofounder,
   },
   {
     name: "Core Delivery Team",
