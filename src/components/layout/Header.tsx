@@ -31,14 +31,7 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
-        scrolled
-          ? "border-b bg-background/95 shadow-md backdrop-blur-md"
-          : "border-b border-transparent bg-background/80 backdrop-blur-sm"
-      )}
-    >
+    <header>
       <div className="container flex h-16 items-center justify-between gap-4 sm:h-20 md:h-[88px]">
         <Link
           href="/"
@@ -152,92 +145,88 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile menu - slide-in drawer */}
-      <div
-        className={cn(
-          "fixed inset-0 z-50 lg:hidden",
-          "transition-opacity duration-300",
-          mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        )}
-      >
-        <div
-          className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-          onClick={() => setMobileOpen(false)}
-          aria-hidden
-        />
-        <nav
-          className={cn(
-            "absolute right-0 top-0 h-screen w-full max-w-xs border-l border-white/10 bg-gradient-to-b from-background via-slate-950/95 to-slate-900 shadow-2xl backdrop-blur-xl sm:max-w-sm",
-            "flex flex-col pt-8 pb-8 px-6 gap-3 overflow-y-auto",
-            "transition-transform duration-300 ease-out",
-            mobileOpen ? "translate-x-0" : "translate-x-full"
-          )}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="mb-4 flex items-center justify-between">
-            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">
-              Menu
-            </span>
+      {/* Mobile menu - full screen for small viewports */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-background lg:hidden">
+          {/* Top bar inside mobile menu */}
+          <div className="flex items-center justify-between border-b px-4 py-4">
+            <Link
+              href="/"
+              className="flex items-center"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Image
+                src={logo}
+                alt="RSA Tech Softwares - Rapid Solution & Automation"
+                width={160}
+                height={60}
+                className="h-10 w-auto"
+              />
+            </Link>
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-slate-100 shadow-sm transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-muted text-foreground shadow-sm hover:bg-muted/80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background"
               aria-label="Close menu"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
-          {mainNavigation.map((item) =>
-            item.children ? (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 shadow-sm"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300">
-                  {item.label}
-                </p>
-                <div className="mt-3 space-y-1.5">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.label}
-                      href={child.href}
-                      className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-slate-100 transition-colors hover:bg-white/10"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      <span>{child.label}</span>
-                      <span className="text-[11px] font-normal text-slate-300">
-                        Explore
-                      </span>
-                    </Link>
-                  ))}
+
+          {/* Menu content */}
+          <nav className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+            {mainNavigation.map((item) =>
+              item.children ? (
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-border bg-muted/70 px-4 py-4 shadow-sm"
+                >
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+                    {item.label}
+                  </p>
+                  <div className="mt-3 space-y-1.5">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.label}
+                        href={child.href}
+                        className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-background"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <span>{child.label}</span>
+                        <span className="text-[11px] font-normal text-muted-foreground">
+                          Explore
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 shadow-sm transition-colors hover:bg-white/10"
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center justify-between rounded-2xl border border-border bg-muted/70 px-4 py-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-background"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <span>{item.label}</span>
+                  <span className="text-[11px] font-normal text-muted-foreground">
+                    Go
+                  </span>
+                </Link>
+              )
+            )}
+            <div className="pt-2">
+              <Button
+                asChild
+                className="w-full rsa-gradient-bg text-white"
+                size="lg"
                 onClick={() => setMobileOpen(false)}
               >
-                <span>{item.label}</span>
-                <span className="text-[11px] font-normal text-slate-300">
-                  Go
-                </span>
-              </Link>
-            )
-          )}
-          <div className="mt-6">
-            <Button
-              asChild
-              className="w-full rsa-gradient-bg text-white"
-              size="lg"
-              onClick={() => setMobileOpen(false)}
-            >
-              <Link href="/contact">Get Free Consultation</Link>
-            </Button>
-          </div>
-        </nav>
-      </div>
+                <Link href="/contact">Get Free Consultation</Link>
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
       {/* Gradient accent bar */}
       <div className="hidden h-[2px] w-full bg-gradient-to-r from-blue-600 via-violet-500 to-orange-400 lg:block" />
     </header>
