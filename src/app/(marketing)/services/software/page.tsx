@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
+import { WebDevHeroBackdrop } from "@/components/sections/services/WebDevHeroBackdrop";
+import { WebDevCraftSection } from "@/components/sections/services/WebDevCraftSection";
+import { WebDevStatsSection } from "@/components/sections/services/WebDevStatsSection";
+import { WebDevProcessSection } from "@/components/sections/services/WebDevProcessSection";
+import { Contact } from "@/components/sections/Contact";
 import {
   Globe,
   ShoppingBag,
   LayoutTemplate,
   Code2,
   Layers,
-  Rocket,
+  Search,
+  Shield,
   Smartphone,
+  Zap,
+  CheckCircle2,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -56,103 +65,146 @@ const solutions = [
   },
 ];
 
-const processSteps = [
+const performanceBenefits = [
   {
-    title: "Requirements",
-    description: "We gather detailed requirements and understand your business goals.",
+    icon: Smartphone,
+    title: "Mobile-first experience",
+    description:
+      "Components and layouts are refined across breakpoints so visitors on phones and desktops both get a consistent, polished feel.",
   },
   {
-    title: "Design",
-    description: "We create wireframes and UI designs focused on usability and branding.",
+    icon: Search,
+    title: "SEO-conscious builds",
+    description:
+      "Semantic structure, sensible metadata patterns and speed work that supports discovery—without gaming shortcuts that hurt long-term trust.",
   },
   {
-    title: "Development",
-    description: "We turn approved designs into clean, maintainable, and performant code.",
+    icon: Zap,
+    title: "Real-world performance",
+    description:
+      "Lean assets, caching awareness and modern stacks so your site stays snappy on everyday networks—not just in lab scores.",
   },
   {
-    title: "Testing",
-    description: "We test across devices, browsers and user flows to ensure a smooth experience.",
+    icon: Shield,
+    title: "Security-minded delivery",
+    description:
+      "HTTPS, sensible headers and maintainable patterns so you can grow traffic and features with fewer avoidable incidents.",
   },
-  {
-    title: "Launch",
-    description: "We deploy, monitor and support your website post‑launch.",
-  },
-];
+] as const;
 
 export default function WebDevelopmentPage() {
   return (
-    <div className="bg-background">
-      {/* Hero */}
-      <section className="border-b bg-gradient-to-b from-blue-50/70 via-background to-background">
-        <div className="container py-16 md:py-24 lg:py-28">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+    <div className="bg-white">
+      {/* Hero — matches home Hero spacing + type scale; dev-themed motion in background */}
+      <section className="home-section-py relative overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(248,196,113,0.12),transparent_55%),radial-gradient(circle_at_bottom,rgba(247,105,2,0.08),transparent_55%)]" />
+        <WebDevHeroBackdrop />
+        <div className="container relative">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-center lg:gap-8">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">
-                Web Development
-              </p>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-                High‑Performance Websites{" "}
-                <span className="rsa-gradient-text">
-                  That Convert Visitors Into Customers
-                </span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#F76902]/60 bg-amber-50/80 px-3 py-1 text-xs font-medium text-neutral-700 shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-[#F76902]" />
+                Websites &amp; web applications
+              </div>
+
+              <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl md:text-4xl lg:text-5xl">
+                High‑performance websites{" "}
+                <span className="rsa-gradient-text">that convert visitors</span>
               </h1>
-              <p className="mt-5 text-base text-muted-foreground md:text-lg">
-                We design and build fast, secure and SEO‑friendly websites that represent your
-                brand and drive real business results.
+
+              <p className="mt-3 max-w-2xl text-base text-neutral-600 md:text-lg">
+                We design and build fast, secure and SEO‑friendly experiences with {siteConfig.shortName}{" "}
+                — from marketing sites to complex web apps.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+
+              <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-neutral-600">
+                <div className="inline-flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F76902]" />
+                  Mobile‑first &amp; performance‑tuned
+                </div>
+                <div className="inline-flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#F76902]" />
+                  SEO‑ready structure &amp; clean code
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:flex-wrap">
                 <Button
                   asChild
                   size="lg"
-                  className="rsa-gradient-bg text-white shadow-sm hover:opacity-90"
+                  className="gap-2 rounded-[30px] bg-[#F76902] px-7 text-base font-semibold text-white shadow-md hover:bg-[#f9802b]"
                 >
-                  <Link href="/contact">Get Website Quote</Link>
+                  <Link href="/contact">
+                    <CheckCircle2 className="h-5 w-5" />
+                    Get website quote
+                  </Link>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-blue-200 bg-white/80 text-blue-600 hover:bg-blue-50"
+                  className="rounded-[30px] border-2 border-amber-400/80 bg-white px-6 text-base font-semibold text-[#F76902] hover:bg-amber-50"
                 >
-                  <Link href="/contact">WhatsApp Consultation</Link>
+                  <Link href={siteConfig.links.whatsapp}>WhatsApp us</Link>
                 </Button>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <Rocket className="h-4 w-4 text-blue-600" />
-                  Mobile‑first, SEO‑optimized, and performance‑tuned builds.
-                </span>
               </div>
             </div>
 
-            <div className="rounded-2xl border bg-card p-6 shadow-sm md:p-8">
-              <h2 className="text-lg font-semibold">Website solutions for every business</h2>
-              <p className="mt-3 text-sm text-muted-foreground">
-                From informative sites to complex e‑commerce and SaaS platforms, we cover the full
-                range of web development requirements.
-              </p>
-              <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-                <li>• Informative business and service websites</li>
-                <li>• Product catalog and e‑commerce experiences</li>
-                <li>• CMS‑driven marketing websites</li>
-                <li>• Custom React/Next.js web apps and portals</li>
-              </ul>
+            <div className="relative mt-4 lg:mt-0">
+              <div className="relative rounded-3xl border-2 border-amber-400/80 bg-white p-5 shadow-xl shadow-amber-400/15 md:p-6">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-amber-400 bg-amber-50 text-[#F76902]">
+                    <Globe className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                      Web development
+                    </p>
+                    <p className="text-sm font-semibold text-neutral-900">End‑to‑end delivery</p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-base font-semibold leading-snug text-neutral-900 md:text-lg">
+                  Stacks, speed and SEO — without compromise
+                </p>
+                <p className="mt-2 text-sm text-neutral-600">
+                  From informative sites to e‑commerce and SaaS — we ship maintainable frontends and
+                  solid integrations.
+                </p>
+
+                <ul className="mt-4 space-y-2 text-sm text-neutral-600">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#F76902]" />
+                    React, Next.js, WordPress, Shopify &amp; more
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#F76902]" />
+                    Core Web Vitals &amp; accessibility in mind
+                  </li>
+                </ul>
+
+                <div className="mt-5">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="rounded-[30px] bg-[#F76902] px-5 text-xs font-semibold text-white hover:bg-[#f9802b]"
+                  >
+                    <Link href="/contact">Talk to our team</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Solutions grid */}
-      <section className="py-16 md:py-24 bg-muted/40">
+      <section className="border-t border-amber-400/30 bg-white py-10 md:py-14 lg:py-16">
         <div className="container">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">
-              Solutions
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-              Website Solutions for Every Business
-            </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="marketing-eyebrow">Solutions</p>
+            <h2 className="marketing-heading mt-3">Website solutions for every business</h2>
+            <p className="marketing-body mt-4">
               Choose from a wide range of website types depending on your business model and growth
               stage.
             </p>
@@ -162,80 +214,63 @@ export default function WebDevelopmentPage() {
             {solutions.map((item) => (
               <div
                 key={item.title}
-                className="group flex flex-col rounded-2xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
+                className="group flex flex-col rounded-2xl border-2 border-amber-400/60 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-[#F76902] hover:shadow-lg hover:shadow-amber-400/15"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-amber-400 bg-amber-50 text-[#F76902] transition-colors group-hover:border-[#F76902] group-hover:bg-amber-50">
                   <item.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-base font-semibold md:text-lg">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
+                <h3 className="marketing-subheading mt-4">{item.title}</h3>
+                <p className="marketing-body mt-2">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why our websites perform better */}
-      <section className="py-16 md:py-24">
-        <div className="container">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                Why Our Websites Perform Better
-              </h2>
-              <p className="mt-4 text-muted-foreground">
-                Every website we ship is built with performance, security and SEO in mind so that
-                your customers get the best possible experience.
-              </p>
-              <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
-                <li>• Mobile‑first design optimized for all screen sizes.</li>
-                <li>• SEO‑optimized structure ready to rank on Google.</li>
-                <li>• Fast loading speed with performance‑tuned code.</li>
-                <li>• Secure architecture with HTTPS and best practices.</li>
-              </ul>
-            </div>
+      <WebDevCraftSection />
 
-            {/* Process */}
-            <div className="rounded-2xl border bg-card p-6 shadow-sm md:p-8">
-              <h3 className="text-xl font-semibold">Website Development Process</h3>
-              <div className="mt-6 space-y-4 text-sm text-muted-foreground">
-                {processSteps.map((step) => (
-                  <div key={step.title} className="flex flex-col rounded-xl border bg-muted/60 p-4">
-                    <div className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">
-                      {step.title}
-                    </div>
-                    <p className="mt-1 text-xs">{step.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WebDevStatsSection />
 
-      {/* Final CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-blue-600 via-violet-600 to-orange-500 text-white">
-        <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Let’s Build Your Website the Right Way
-            </h2>
-            <p className="mt-4 text-base text-white/90 md:text-lg">
-              Share your requirements and we&apos;ll propose the right approach, stack and
-              timeline for your new website.
+      {/* Why we perform better */}
+      <section className="relative overflow-hidden border-t border-amber-400/30 bg-linear-to-b from-amber-50/35 via-white to-white py-10 md:py-14 lg:py-16">
+        <div
+          className="pointer-events-none absolute right-0 top-1/2 h-[420px] w-[420px] -translate-y-1/2 translate-x-1/3 rounded-full bg-[radial-gradient(circle,rgba(247,105,2,0.09),transparent_70%)]"
+          aria-hidden
+        />
+        <div className="container relative">
+          <div className="mx-auto max-w-3xl text-center lg:max-w-4xl">
+            <p className="marketing-eyebrow">Performance &amp; quality</p>
+            <h2 className="marketing-heading mt-3">Why our websites perform better</h2>
+            <p className="marketing-body mt-4">
+              Every site we ship balances speed, clarity and SEO so your visitors trust the
+              experience—and search engines can understand what you offer.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="bg-white text-blue-700 hover:bg-white/90"
+          </div>
+
+          <div className="mx-auto mt-10 grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {performanceBenefits.map((item) => (
+              <div
+                key={item.title}
+                className="group rounded-2xl border-2 border-amber-400/50 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#F76902]/70 hover:shadow-lg hover:shadow-amber-400/15"
               >
-                <Link href="/contact">Start Your Project</Link>
-              </Button>
-            </div>
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-amber-400/70 bg-amber-50 text-[#F76902] transition-colors group-hover:border-[#F76902]">
+                  <item.icon className="h-5 w-5" strokeWidth={2} aria-hidden />
+                </div>
+                <h3 className="mt-4 text-base font-semibold tracking-tight text-neutral-900 lg:text-[15px] xl:text-lg">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600 lg:text-[13px] xl:text-[15px]">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      <WebDevProcessSection />
+
+      <Contact />
     </div>
   );
 }

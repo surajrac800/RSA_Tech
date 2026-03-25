@@ -5,63 +5,61 @@ import { siteConfig } from "@/config/site";
 import { B2BForm } from "@/components/forms/B2BForm";
 
 export const metadata: Metadata = {
-  title: "B2B Proposal",
-  description: `Request a custom B2B partnership proposal from ${siteConfig.shortName}.`,
+  title: "B2B Partner Proposal | RSA Tech Softwares",
+  description: `Request a partnership or volume quote from ${siteConfig.shortName}. We reply by email with next steps.`,
 };
 
 export default function B2BApplyPage() {
   return (
-    <section className="relative bg-background">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.12),transparent_55%),radial-gradient(circle_at_bottom,_rgba(147,51,234,0.09),transparent_55%)]" />
-      <div className="container relative py-16 md:py-20 lg:py-24">
+    <section className="relative bg-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(248,196,113,0.12),transparent_55%),radial-gradient(circle_at_bottom,rgba(247,105,2,0.08),transparent_55%)]" />
+      <div className="container relative py-10 md:py-14 lg:py-16">
         <div className="mx-auto max-w-5xl">
           <Link
             href="/b2b"
-            className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#F76902] hover:text-[#d45a02]"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to B2B
           </Link>
 
-          <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)]">
+          <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.1fr)] lg:items-start">
             <div className="space-y-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
-                B2B proposal
-              </p>
-              <h1 className="text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl">
-                Tell us how you want to scale.
+              <p className="marketing-eyebrow">B2B proposal</p>
+              <h1 className="text-2xl font-extrabold tracking-tight text-neutral-900 md:text-3xl lg:text-4xl">
+                Partner application &amp; volume quote
               </h1>
-              <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-                Agencies, resellers and in-house teams use {siteConfig.shortName} as their
-                white-label execution partner. Share your volume, timelines and the kind
-                of work you need support with. We&apos;ll reply with a tailored proposal,
-                pricing and SLAs.
+              <p className="text-base leading-relaxed text-neutral-600 md:text-[17px]">
+                Use this form for agency resale, white-label delivery, bulk site or landing builds,
+                and monthly capacity. Share your company name, typical project sizes and how you
+                sell to end clients. We respond via {siteConfig.links.email}—usually within a few
+                working days once we have enough detail to quote.
               </p>
-              <div className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
-                <div className="rounded-2xl border border-blue-100/80 bg-white/80 p-4 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">
-                    What you can expect
+              <div className="grid gap-4 text-sm text-neutral-600 sm:grid-cols-2">
+                <div className="rounded-2xl border-2 border-amber-400/50 bg-white p-4 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F76902]">
+                    In the reply
                   </p>
-                  <ul className="mt-2 space-y-1.5">
-                    <li>— Clear pricing for your volume</li>
-                    <li>— Suggested engagement model</li>
-                    <li>— SLAs and communication rhythm</li>
+                  <ul className="mt-2 space-y-1.5 leading-relaxed">
+                    <li>— Rate card or project bands where applicable</li>
+                    <li>— Suggested engagement (per project / retainer)</li>
+                    <li>— How changes and rush work are handled</li>
                   </ul>
                 </div>
-                <div className="rounded-2xl border border-blue-100/80 bg-white/80 p-4 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">
+                <div className="rounded-2xl border-2 border-amber-400/50 bg-white p-4 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F76902]">
                     Typical partners
                   </p>
-                  <ul className="mt-2 space-y-1.5">
-                    <li>— Digital & performance agencies</li>
-                    <li>— Resellers & consultants</li>
-                    <li>— In-house teams with overflow</li>
+                  <ul className="mt-2 space-y-1.5 leading-relaxed">
+                    <li>— Digital &amp; performance agencies</li>
+                    <li>— IT consultants &amp; system integrators</li>
+                    <li>— In-house teams needing overflow capacity</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-3xl border border-blue-100/80 bg-white/95 p-6 shadow-xl shadow-blue-500/15 backdrop-blur md:p-7">
+            <div className="rounded-3xl border-2 border-amber-400/70 bg-white p-6 shadow-xl shadow-amber-400/15 md:p-7">
               <B2BForm />
             </div>
           </div>
@@ -70,4 +68,3 @@ export default function B2BApplyPage() {
     </section>
   );
 }
-

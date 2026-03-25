@@ -4,21 +4,20 @@ import { ArrowRight } from "lucide-react";
 
 export function Portfolio() {
   return (
-    <section className="relative py-20 md:py-28 bg-background">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.1),transparent_55%),radial-gradient(circle_at_bottom_right,_rgba(249,115,22,0.08),transparent_55%)]" />
+    <section className="relative bg-white py-20 md:py-28">
       <div className="container relative">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
-            Our Work Speaks for Itself
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-            See How We Turn Ideas into Results
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="marketing-eyebrow">Our Work Speaks for Itself</p>
+          <h2 className="marketing-heading mt-3">See How We Turn Ideas into Results</h2>
+          <p className="marketing-body mt-4">
             Explore real projects where we&apos;ve helped businesses grow traffic, leads and
             revenue with the right mix of technology and marketing.
           </p>
-          <Button asChild size="lg" className="mt-8 gap-2 rsa-gradient-bg text-white shadow-md">
+          <Button
+            asChild
+            size="lg"
+            className="mt-8 gap-2 rounded-[30px] bg-[#F76902] px-7 text-white shadow-md hover:bg-[#f9802b]"
+          >
             <Link href="/portfolio">
               View Portfolio
               <ArrowRight className="h-4 w-4" />

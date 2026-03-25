@@ -3,19 +3,19 @@ import { Button } from "@/components/ui/button";
 
 export function Cta() {
   return (
-    <section className="py-20 md:py-28 rsa-gradient-bg text-white">
+    <section className="border-t-2 border-amber-400/50 bg-white py-20 md:py-28">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+          <h2 className="marketing-heading">
             Let&apos;s Build Something Powerful Together
           </h2>
-          <p className="mt-6 text-lg text-white/90">
+          <p className="marketing-body mt-6">
             Speak with our experts today and get a free digital audit.
           </p>
           <Button
             asChild
             size="lg"
-            className="mt-10 bg-white text-blue-600 hover:bg-white/90"
+            className="mt-10 rounded-[30px] bg-[#F76902] px-8 font-semibold text-white hover:bg-[#f9802b]"
           >
             <Link href="/contact">Contact Us Today</Link>
           </Button>

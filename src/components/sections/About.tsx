@@ -4,42 +4,42 @@ import { siteConfig } from "@/config/site";
 
 export function About() {
   return (
-    <section className="relative py-20 md:py-28 bg-muted/30">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.08),transparent_55%),radial-gradient(circle_at_bottom,_rgba(249,115,22,0.08),transparent_55%)]" />
+    <section className="home-section-py relative bg-white">
       <div className="container relative">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
-              About {siteConfig.shortName}
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
+            <p className="marketing-eyebrow">About {siteConfig.shortName}</p>
+            <h2 className="marketing-heading mt-3">
               Digital Growth. Smart Technology.{" "}
               <span className="rsa-gradient-text">Real Results.</span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground">
+            <p className="marketing-body mt-6">
               {siteConfig.shortName} delivers comprehensive software and digital marketing solutions that help businesses thrive in the modern marketplace. From custom software to SEO and social media, we&apos;re your one-stop partner for digital success.
             </p>
-            <Button asChild className="mt-8">
+            <Button
+              asChild
+              className="mt-8 rounded-[30px] bg-[#F76902] px-6 font-semibold text-white hover:bg-[#f9802b]"
+            >
               <Link href="/about">Learn More About Us</Link>
             </Button>
           </div>
-          <div className="rounded-2xl border border-blue-200/60 bg-gradient-to-br from-blue-500/10 via-violet-500/10 to-orange-500/10 p-8 shadow-lg shadow-blue-500/10 backdrop-blur-md md:p-12">
-            <h3 className="text-xl font-semibold mb-4">Our Expertise</h3>
-            <ul className="space-y-3 text-muted-foreground">
+          <div className="rounded-2xl border-2 border-amber-400/70 bg-white p-8 shadow-lg md:p-12">
+            <h3 className="marketing-subheading mb-4">Our Expertise</h3>
+            <ul className="marketing-body space-y-3">
               <li className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-blue-500" />
+                <span className="h-2 w-2 rounded-full bg-[#F76902]" />
                 Custom Software & Automation
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-blue-500" />
+                <span className="h-2 w-2 rounded-full bg-[#F76902]" />
                 Web & Mobile Development
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-blue-500" />
+                <span className="h-2 w-2 rounded-full bg-[#F76902]" />
                 Digital Marketing & SEO
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-blue-500" />
+                <span className="h-2 w-2 rounded-full bg-[#F76902]" />
                 Social Media Strategy
               </li>
             </ul>

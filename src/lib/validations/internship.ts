@@ -1,12 +1,14 @@
 import { z } from "zod";
 
 export const INTERNSHIP_PROGRAMS = [
-  "WordPress Developer",
-  "Shopify Developer",
-  "Frontend Developer",
-  "Backend Developer",
-  "App Developer",
-  "Digital Marketing (Meta Ads, Google Ads & more)",
+  "Digital Marketing (SEO, Meta & Google Ads, Social)",
+  "Web Development (HTML/CSS, React, Next.js)",
+  "WordPress Development",
+  "Shopify Development",
+  "App Development (Android & cross-platform)",
+  "Software & Backend Development (Node, APIs, databases)",
+  "AI & Machine Learning (basics to applied projects)",
+  "UI/UX & creative production",
 ] as const;
 
 export const internshipSchema = z.object({
@@ -28,4 +30,3 @@ export const internshipSchema = z.object({
 });
 
 export type InternshipFormData = z.infer<typeof internshipSchema>;
-

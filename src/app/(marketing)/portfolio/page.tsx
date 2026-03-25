@@ -1,24 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowUpRight,
-  ExternalLink,
-  BarChart3,
-  ImageIcon,
-} from "lucide-react";
+import { siteConfig } from "@/config/site";
+import { services } from "@/config/services";
+import { ArrowUpRight, ExternalLink, ImageIcon } from "lucide-react";
 import {
   portfolioCategories,
   portfolioItems,
-  portfolioImpactStats,
   type PortfolioItem,
   type PortfolioCategory,
 } from "@/content/portfolio";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "Portfolio | RSA Tech Softwares",
   description:
-    "Our work: digital marketing (Meta & Google Ads), graphic design, content writing, web, software and app development with proof and results.",
+    "Selected work across digital marketing, websites, apps and custom software from RSA Tech Softwares.",
 };
 
 function ProofStrip({ item }: { item: PortfolioItem }) {
@@ -26,35 +22,33 @@ function ProofStrip({ item }: { item: PortfolioItem }) {
   const hasImage = item.proofImage;
   if (!hasMetrics && !hasImage) {
     return (
-      <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-dashed border-blue-200/80 bg-blue-50/50 py-8 text-center">
-        <ImageIcon className="h-8 w-8 text-blue-400" />
-        <span className="text-xs font-medium text-blue-700">
-          Add screenshot or proof image
-        </span>
+      <div className="mt-5 flex min-h-[100px] items-center justify-center gap-2 rounded-xl bg-neutral-50 px-4 py-6 text-center ring-1 ring-inset ring-neutral-200/80">
+        <ImageIcon className="h-6 w-6 text-neutral-400" aria-hidden />
+        <span className="text-xs font-medium text-neutral-500">Visuals available on request</span>
       </div>
     );
   }
   return (
-    <div className="mt-4 space-y-3">
+    <div className="mt-5 space-y-3">
       {hasMetrics && (
-        <div className="flex flex-wrap gap-3 rounded-xl bg-gradient-to-r from-blue-50 to-violet-50/80 px-4 py-3">
+        <div className="flex flex-wrap gap-4 rounded-xl bg-neutral-50 px-4 py-3 ring-1 ring-inset ring-neutral-200/80">
           {item.proofMetrics!.map((m) => (
-            <div key={m.label} className="flex flex-col">
-              <span className="text-xs font-medium text-muted-foreground">
+            <div key={m.label}>
+              <span className="text-[11px] font-medium uppercase tracking-wide text-neutral-500">
                 {m.label}
               </span>
-              <span className="text-sm font-bold text-blue-700">{m.value}</span>
+              <span className="mt-0.5 block text-sm font-bold text-neutral-900">{m.value}</span>
             </div>
           ))}
         </div>
       )}
       {hasImage && (
-        <div className="overflow-hidden rounded-xl border border-blue-100 bg-muted/50">
+        <div className="overflow-hidden rounded-xl ring-1 ring-inset ring-neutral-200/80">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={item.proofImage}
-            alt={`Proof for ${item.title}`}
-            className="h-40 w-full object-cover object-top"
+            alt={`Project visual: ${item.title}`}
+            className="h-44 w-full object-cover object-top"
           />
         </div>
       )}
@@ -72,20 +66,20 @@ function PortfolioCard({
   categoryIcon: React.ComponentType<{ className?: string }>;
 }) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-blue-100/70 bg-white/95 shadow-sm shadow-blue-500/10 transition-all hover:-translate-y-2 hover:border-blue-300 hover:shadow-2xl hover:shadow-blue-500/20">
-      <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-orange-400 opacity-15 blur-2xl" />
-      <div className="relative flex flex-1 flex-col p-6">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06),0_8px_24px_rgba(247,105,2,0.06)] ring-1 ring-neutral-200/90 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(247,105,2,0.12)] hover:ring-amber-400/40">
+      <div className="h-1 w-full origin-left scale-x-[0.35] bg-linear-to-r from-[#F76902] to-amber-400 transition-transform duration-300 group-hover:scale-x-100" />
+      <div className="flex flex-1 flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 via-violet-500 to-orange-400 text-white shadow-md shadow-blue-500/40">
-              <Icon className="h-5 w-5" />
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neutral-900 text-amber-400 shadow-sm transition-colors group-hover:bg-[#F76902] group-hover:text-white">
+              <Icon className="h-5 w-5" aria-hidden />
             </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
+            <div className="min-w-0">
+              <p className="truncate text-[11px] font-semibold uppercase tracking-[0.14em] text-[#F76902]">
                 {categoryLabel}
               </p>
               {(item.client || item.industry) && (
-                <p className="text-xs text-muted-foreground">
+                <p className="mt-0.5 truncate text-xs text-neutral-500">
                   {[item.client, item.industry].filter(Boolean).join(" · ")}
                 </p>
               )}
@@ -96,25 +90,23 @@ function PortfolioCard({
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800"
+              className="flex shrink-0 items-center gap-1 text-xs font-semibold text-neutral-900 underline-offset-4 hover:text-[#F76902] hover:underline"
             >
               {item.linkLabel ?? "View"}
-              <ExternalLink className="h-3.5 w-3.5" />
+              <ExternalLink className="h-3.5 w-3.5 opacity-70" aria-hidden />
             </a>
           )}
         </div>
-        <h2 className="relative mt-3 text-base font-semibold text-foreground">
+        <h2 className="mt-4 text-base font-bold leading-snug tracking-tight text-neutral-900 md:text-lg">
           {item.title}
         </h2>
-        <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
-          {item.description}
-        </p>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-neutral-600">{item.description}</p>
         <ProofStrip item={item} />
-        <div className="relative mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-1.5 border-t border-neutral-100 pt-4">
           {item.tools.map((tool) => (
             <span
               key={tool}
-              className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
+              className="rounded-md bg-neutral-100 px-2 py-0.5 text-[11px] font-medium text-neutral-700"
             >
               {tool}
             </span>
@@ -131,166 +123,206 @@ function CategorySection({
   description,
   icon: Icon,
   items,
+  index,
 }: {
   categoryId: PortfolioCategory;
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   items: PortfolioItem[];
+  index: number;
 }) {
   if (items.length === 0) return null;
+  const isAlt = index % 2 === 1;
+
   return (
-    <section className="scroll-mt-20" id={categoryId}>
-      <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 via-violet-500 to-orange-400 text-white shadow-lg shadow-blue-500/40">
-            <Icon className="h-6 w-6" />
+    <section
+      className="scroll-mt-28"
+      id={categoryId}
+      aria-label={title}
+    >
+      <div
+        className={`rounded-3xl border border-neutral-200/90 ${isAlt ? "bg-linear-to-b from-amber-50/40 via-white to-white" : "bg-white"} px-4 py-8 shadow-sm sm:px-6 md:px-8 md:py-10 lg:px-10`}
+      >
+        <div className="mb-8 flex flex-col gap-5 border-b border-neutral-200/80 pb-8 md:flex-row md:items-end md:justify-between md:gap-6">
+          <div className="flex gap-4">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#F76902] text-white shadow-md shadow-amber-500/25">
+              <Icon className="h-7 w-7" aria-hidden />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#F76902]">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h2 className="mt-1 text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">
+                {title}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-600 md:text-base">
+                {description}
+              </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
-              {title}
-            </h2>
-            <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
-          </div>
+          <span className="inline-flex w-fit items-center rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white">
+            {items.length} project{items.length !== 1 ? "s" : ""}
+          </span>
         </div>
-        <div className="flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700">
-          <BarChart3 className="h-4 w-4" />
-          {items.length} project{items.length !== 1 ? "s" : ""}
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+          {items.map((item) => (
+            <PortfolioCard
+              key={item.id}
+              item={item}
+              categoryLabel={title}
+              categoryIcon={Icon}
+            />
+          ))}
         </div>
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((item) => (
-          <PortfolioCard
-            key={item.id}
-            item={item}
-            categoryLabel={title}
-            categoryIcon={Icon}
-          />
-        ))}
       </div>
     </section>
   );
 }
 
 export default function PortfolioPage() {
-  const itemsByCategory = portfolioCategories.map((cat) => ({
-    ...cat,
-    items: portfolioItems.filter((i) => i.category === cat.id),
-  }));
+  const itemsByCategory = portfolioCategories
+    .map((cat) => ({
+      ...cat,
+      items: portfolioItems.filter((i) => i.category === cat.id),
+    }))
+    .filter((c) => c.items.length > 0);
 
   return (
-    <section className="relative bg-background">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.12),transparent_55%),radial-gradient(circle_at_bottom,_rgba(147,51,234,0.09),transparent_55%)]" />
-      <div className="container relative py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-6xl">
-          {/* Hero */}
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
-              Our Work
-            </p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-              Results we&apos;ve created with{" "}
-              <span className="rsa-gradient-text">proof that speaks</span>
-            </h1>
-            <p className="mt-4 text-base text-muted-foreground md:text-lg">
-              Digital marketing results (Meta & Google Ads), graphic design,
-              content writing, web, software and app development — with metrics,
-              screenshots and live links where possible.
-            </p>
-          </div>
-
-          {/* Impact stats */}
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 md:mt-12">
-            <div className="rounded-2xl border border-blue-100/80 bg-white/95 px-6 py-5 text-center shadow-lg shadow-blue-500/10 transition-all hover:shadow-xl">
-              <p className="text-3xl font-bold rsa-gradient-text md:text-4xl">
-                {portfolioImpactStats.adAccountsManaged}
+    <div className="bg-neutral-50/80">
+      <section className="relative overflow-hidden bg-white pb-12 pt-10 md:pb-16 md:pt-14 lg:pb-20 lg:pt-16">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(251,191,36,0.18),transparent),radial-gradient(ellipse_60%_40%_at_100%_0%,rgba(247,105,2,0.08),transparent)]" />
+        <div className="container relative">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 xl:gap-16">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#F76902]">
+                Portfolio
               </p>
-              <p className="mt-1 text-sm font-semibold text-foreground">
-                Meta & Google Ads accounts managed
+              <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl lg:leading-[1.1]">
+                Work that spans{" "}
+                <span className="rsa-gradient-text">marketing, web, apps &amp; software</span>
+              </h1>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-neutral-600 md:text-lg">
+                A curated view of the kinds of engagements we run at {siteConfig.shortName}—from
+                campaigns and creative to sites, mobile apps and custom internal tools.
               </p>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                Active campaigns across verticals
-              </p>
-            </div>
-            <div className="rounded-2xl border border-blue-100/80 bg-white/95 px-6 py-5 text-center shadow-lg shadow-blue-500/10 transition-all hover:shadow-xl">
-              <p className="text-3xl font-bold rsa-gradient-text md:text-4xl">
-                {portfolioImpactStats.websitesDelivered}
-              </p>
-              <p className="mt-1 text-sm font-semibold text-foreground">
-                Websites delivered
-              </p>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                WordPress, Shopify & more
-              </p>
-            </div>
-            <div className="rounded-2xl border border-blue-100/80 bg-white/95 px-6 py-5 text-center shadow-lg shadow-blue-500/10 transition-all hover:shadow-xl">
-              <p className="text-3xl font-bold rsa-gradient-text md:text-4xl">
-                {portfolioImpactStats.appsDelivered}
-              </p>
-              <p className="mt-1 text-sm font-semibold text-foreground">
-                Apps successfully delivered
-              </p>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                Android, PWA & cross-platform
-              </p>
-            </div>
-          </div>
-
-          {/* Category nav / anchors */}
-          <nav className="mt-10 flex flex-wrap justify-center gap-2 md:mt-12">
-            {portfolioCategories.map((cat) => {
-              const count = portfolioItems.filter(
-                (i) => i.category === cat.id
-              ).length;
-              if (count === 0) return null;
-              return (
-                <a
-                  key={cat.id}
-                  href={`#${cat.id}`}
-                  className="rounded-full border border-blue-200/80 bg-white/90 px-4 py-2 text-xs font-medium text-blue-700 shadow-sm transition-colors hover:border-blue-400 hover:bg-blue-50"
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-full bg-[#F76902] px-8 font-semibold text-white shadow-lg shadow-amber-500/20 hover:bg-[#f9802b]"
                 >
-                  {cat.shortLabel} ({count})
-                </a>
-              );
-            })}
-          </nav>
+                  <Link href="/contact" className="gap-2">
+                    Discuss a project
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full border-2 border-neutral-200 bg-white font-semibold text-neutral-900 hover:border-amber-400 hover:bg-amber-50/50"
+                >
+                  <Link href="/services">All services</Link>
+                </Button>
+              </div>
+            </div>
 
-          {/* Sections by category */}
-          <div className="mt-14 space-y-16 md:mt-16">
-            {itemsByCategory.map(({ id, label, description, icon, items }) => (
+            <div className="rounded-3xl border border-neutral-200/90 bg-white/90 p-6 shadow-xl shadow-neutral-900/5 backdrop-blur-sm md:p-8">
+              <p className="text-sm font-semibold text-neutral-900">What we deliver</p>
+              <p className="mt-2 text-sm leading-relaxed text-neutral-500">
+                Open a full service page for process, typical stacks and ways to engage—then scroll
+                this portfolio for concrete examples underneath.
+              </p>
+              <ul className="mt-5 space-y-2">
+                {services.slice(0, 4).map((s) => {
+                  const ServiceIcon = s.icon;
+                  return (
+                    <li key={s.id}>
+                      <Link
+                        href={s.href}
+                        className="group flex items-start gap-3 rounded-2xl p-2.5 transition-colors hover:bg-amber-50/70"
+                      >
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F76902]/12 text-[#F76902] ring-1 ring-[#F76902]/10 transition-colors group-hover:bg-[#F76902] group-hover:text-white group-hover:ring-transparent">
+                          <ServiceIcon className="h-5 w-5" aria-hidden />
+                        </span>
+                        <span className="min-w-0 flex-1 pt-0.5">
+                          <span className="flex items-center gap-1 text-sm font-semibold text-neutral-900">
+                            {s.title}
+                            <ArrowUpRight
+                              className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100"
+                              aria-hidden
+                            />
+                          </span>
+                          <span className="mt-0.5 block text-xs leading-snug text-neutral-600">
+                            {s.description}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="mt-4 border-t border-neutral-100 pt-4 text-xs leading-relaxed text-neutral-500">
+                Examples on this page are grouped by the same lines of work—marketing &amp; content,
+                websites, custom software and mobile apps.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="border-t border-neutral-200/90 bg-neutral-50/80 py-12 md:py-16 lg:py-20">
+        <div className="container">
+          <div className="mx-auto max-w-7xl space-y-10 md:space-y-12 lg:space-y-14">
+            {itemsByCategory.map((cat, index) => (
               <CategorySection
-                key={id}
-                categoryId={id}
-                title={label}
-                description={description}
-                icon={icon}
-                items={items}
+                key={cat.id}
+                categoryId={cat.id}
+                title={cat.label}
+                description={cat.description}
+                icon={cat.icon}
+                items={cat.items}
+                index={index}
               />
             ))}
           </div>
-
-          {/* CTA */}
-          <div className="mt-16 flex flex-col items-center gap-4 rounded-3xl border border-blue-100/80 bg-gradient-to-br from-blue-50/80 via-white to-violet-50/60 px-6 py-12 text-center shadow-lg shadow-blue-500/10 md:mt-20">
-            <p className="text-base font-semibold text-foreground md:text-lg">
-              Want results like these for your brand?
-            </p>
-            <p className="max-w-xl text-sm text-muted-foreground">
-              Share your goals and we&apos;ll put together a plan with clear
-              deliverables and proof points.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="mt-2 gap-2 rsa-gradient-bg text-white shadow-md"
-            >
-              <Link href="/contact">
-                Discuss Your Project
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
         </div>
       </div>
-    </section>
+
+      <section className="border-t border-neutral-200/90 bg-white py-12 md:py-16">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-neutral-900 md:text-3xl">
+              Planning something in this list?
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-neutral-600">
+              Share your context and timeline—we&apos;ll respond with a sensible scope and how
+              we&apos;d work with {siteConfig.shortName}.
+            </p>
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full bg-[#F76902] px-8 font-semibold text-white hover:bg-[#f9802b]"
+              >
+                <Link href="/contact" className="gap-2">
+                  Get in touch
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="rounded-full border-2 border-neutral-200 font-semibold hover:border-amber-400 hover:bg-amber-50/50"
+              >
+                <Link href="/b2b">B2B &amp; partners</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

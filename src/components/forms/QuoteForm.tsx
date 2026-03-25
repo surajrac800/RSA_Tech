@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { withFormTracking } from "@/lib/form-tracking";
 
 interface QuoteFormProps {
   serviceOptions: { value: string; label: string }[];
@@ -47,11 +48,13 @@ export function QuoteForm({ serviceOptions, onSuccess }: QuoteFormProps) {
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          subject: `Quote request: ${data.service}`,
-          message: `Service: ${data.service}`,
-        }),
+        body: JSON.stringify(
+          withFormTracking({
+            ...data,
+            subject: `Quote request: ${data.service}`,
+            message: `Service: ${data.service}`,
+          })
+        ),
       });
       sendToWhatsApp(data);
       onSuccess?.();

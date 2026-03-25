@@ -3,17 +3,12 @@ import { Badge } from "@/components/ui/badge";
 
 export function Industries() {
   return (
-    <section className="relative py-20 md:py-28 bg-background">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.06),transparent_55%),radial-gradient(circle_at_bottom,_rgba(6,182,212,0.08),transparent_55%)]" />
+    <section className="relative bg-white py-20 md:py-28">
       <div className="container relative">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
-            Industries We Serve
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-            Built for Modern Businesses
-          </h2>
-          <p className="mt-4 text-muted-foreground">
+          <p className="marketing-eyebrow">Industries We Serve</p>
+          <h2 className="marketing-heading mt-3">Built for Modern Businesses</h2>
+          <p className="marketing-body mt-4">
             From local businesses to fast-scaling startups, we adapt our solutions to your industry
             and growth stage.
           </p>
@@ -23,7 +18,7 @@ export function Industries() {
             <Badge
               key={industry}
               variant="secondary"
-              className="px-4 py-2 text-sm font-medium bg-white shadow-sm shadow-blue-500/10 border border-blue-100/60"
+              className="marketing-body border-2 border-amber-400/70 bg-amber-50 px-4 py-2 font-medium text-neutral-800 shadow-sm"
             >
               {industry}
             </Badge>

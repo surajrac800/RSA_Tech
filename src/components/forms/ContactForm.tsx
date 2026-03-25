@@ -1,16 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactFormData } from "@/lib/validations/contact";
+import { services } from "@/config/services";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select } from "@/components/ui/select";
+import { withFormTracking } from "@/lib/form-tracking";
+
+const baseDefaults: ContactFormData = {
+  name: "",
+  email: "",
+  service: "",
+  message: "",
+};
 
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const serviceOptions = useMemo(
+    () => [
+      { value: "general", label: "General enquiry" },
+      ...services.map((s) => ({ value: s.id, label: s.title })),
+    ],
+    []
+  );
+
+  const serviceLabel = (value: string) =>
+    serviceOptions.find((o) => o.value === value)?.label ?? value;
 
   const {
     register,
@@ -19,6 +40,7 @@ export function ContactForm() {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    defaultValues: baseDefaults,
   });
 
   function sendToWhatsApp(data: ContactFormData) {
@@ -28,7 +50,7 @@ export function ContactForm() {
       "New contact form submission:",
       `Name: ${data.name}`,
       `Email: ${data.email}`,
-      data.subject ? `Subject: ${data.subject}` : "",
+      `Service: ${serviceLabel(data.service)}`,
       "",
       "Message:",
       data.message,
@@ -46,11 +68,16 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(
+          withFormTracking({
+            ...data,
+            subject: `Contact: ${serviceLabel(data.service)}`,
+          })
+        ),
       });
       if (res.ok) {
         setSuccess(true);
-        reset();
+        reset(baseDefaults);
         sendToWhatsApp(data);
       }
     } catch {
@@ -62,9 +89,11 @@ export function ContactForm() {
 
   if (success) {
     return (
-      <div className="rounded-lg bg-blue-50 p-6 text-center text-blue-700">
-        <p className="font-medium">Thank you for your message!</p>
-        <p className="mt-1 text-sm">We&apos;ll get back to you soon.</p>
+      <div className="rounded-xl border border-amber-200 bg-amber-50/90 p-6 text-center text-neutral-800">
+        <p className="font-semibold text-neutral-900">Thank you for your message!</p>
+        <p className="marketing-body mt-2 text-neutral-600">
+          We&apos;ll get back to you soon.
+        </p>
       </div>
     );
   }
@@ -93,10 +122,15 @@ export function ContactForm() {
         )}
       </div>
       <div>
-        <Input
-          placeholder="Subject (optional)"
-          {...register("subject")}
+        <Select
+          options={serviceOptions}
+          placeholder="Service you're interested in"
+          {...register("service")}
+          className={errors.service ? "border-destructive" : ""}
         />
+        {errors.service && (
+          <p className="mt-1 text-sm text-destructive">{errors.service.message}</p>
+        )}
       </div>
       <div>
         <Textarea

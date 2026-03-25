@@ -1,31 +1,27 @@
 import { Hero } from "@/components/sections/Hero";
-import { WhyUs } from "@/components/sections/WhyUs";
 import { Services } from "@/components/sections/Services";
-import { Industries } from "@/components/sections/Industries";
 import { About } from "@/components/sections/About";
+import { TechnologyExpertise } from "@/components/sections/TechnologyExpertise";
 import { ManagingDirectorSection } from "@/components/sections/ManagingDirector";
-import { Technologies } from "@/components/sections/Technologies";
-import { ProjectShowcase } from "@/components/sections/ProjectShowcase";
-import { Portfolio } from "@/components/sections/Portfolio";
-import { Cta } from "@/components/sections/Cta";
+import { WhyUs } from "@/components/sections/WhyUs";
+import { Process } from "@/components/sections/Process";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
+import { HireDeveloperCta } from "@/components/sections/HireDeveloperCta";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <ProjectShowcase />
-      <WhyUs />
       <Services />
-      <Industries />
       <About />
+      <TechnologyExpertise />
       <ManagingDirectorSection />
-      <Technologies />
-      <Portfolio />
-      <Cta />
+      <WhyUs />
+      <Process />
       <Testimonials />
       <Contact />
+      <HireDeveloperCta />
     </>
   );
 }

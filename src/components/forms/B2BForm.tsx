@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Send, CheckCircle2 } from "lucide-react";
+import { withFormTracking } from "@/lib/form-tracking";
 
 export function B2BForm() {
   const [loading, setLoading] = useState(false);
@@ -57,20 +58,22 @@ export function B2BForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "B2B Partnership Enquiry",
-          name: data.contactName,
-          email: data.email,
-          message: [
-            `Company: ${data.companyName}`,
-            `Phone: ${data.phone}`,
-            `Partnership type: ${B2B_PARTNERSHIP_TYPES.find((p) => p.value === data.partnershipType)?.label ?? data.partnershipType}`,
-            ``,
-            "Requirements:",
-            data.requirements,
-            data.message ? `\nAdditional message:\n${data.message}` : "",
-          ].join("\n"),
-        }),
+        body: JSON.stringify(
+          withFormTracking({
+            subject: "B2B Partnership Enquiry",
+            name: data.contactName,
+            email: data.email,
+            message: [
+              `Company: ${data.companyName}`,
+              `Phone: ${data.phone}`,
+              `Partnership type: ${B2B_PARTNERSHIP_TYPES.find((p) => p.value === data.partnershipType)?.label ?? data.partnershipType}`,
+              ``,
+              "Requirements:",
+              data.requirements,
+              data.message ? `\nAdditional message:\n${data.message}` : "",
+            ].join("\n"),
+          })
+        ),
       });
       if (res.ok) {
         setSuccess(true);

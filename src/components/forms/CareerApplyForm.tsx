@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Upload, FileText } from "lucide-react";
+import { getFormAttributionPayload } from "@/lib/attribution";
 
 const MAX_RESUME_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_RESUME_TYPES = "application/pdf,.doc,.docx";
@@ -63,6 +64,14 @@ export function CareerApplyForm({ defaultPosition }: { defaultPosition?: string 
       if (data.linkedIn) formData.append("linkedIn", data.linkedIn);
       formData.append("coverMessage", data.coverMessage);
       formData.append("resume", file);
+      formData.append(
+        "attribution",
+        JSON.stringify(getFormAttributionPayload())
+      );
+      formData.append(
+        "submittedFrom",
+        typeof window !== "undefined" ? window.location.href : ""
+      );
 
       const res = await fetch("/api/careers", {
         method: "POST",

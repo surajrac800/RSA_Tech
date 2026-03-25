@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
+import type { FormAttribution } from "@/lib/attribution";
+import { utmSubjectTag } from "@/lib/attribution";
+import {
+  buildJsonFormEmailBody,
+  sendFormNotificationEmail,
+} from "@/lib/send-form-email";
 
-const RECIPIENT_EMAIL = "support@rsatechsoftware.in";
 const NOTIFY_PHONE = "+919267917752";
 
 async function notifyPhone(payload: unknown) {
@@ -36,8 +41,24 @@ export async function POST(request: Request) {
     const linkedIn = formData.get("linkedIn") as string | null;
     const coverMessage = formData.get("coverMessage") as string;
     const resume = formData.get("resume") as File | null;
+    const attributionRaw = formData.get("attribution") as string | null;
+    const submittedFrom = formData.get("submittedFrom") as string | null;
 
-    if (!name?.trim() || !email?.trim() || !phone?.trim() || !position?.trim() || !experience?.trim() || !coverMessage?.trim()) {
+    let attribution: Record<string, string> | undefined;
+    try {
+      attribution = attributionRaw ? JSON.parse(attributionRaw) : undefined;
+    } catch {
+      attribution = undefined;
+    }
+
+    if (
+      !name?.trim() ||
+      !email?.trim() ||
+      !phone?.trim() ||
+      !position?.trim() ||
+      !experience?.trim() ||
+      !coverMessage?.trim()
+    ) {
       return NextResponse.json(
         { error: "Missing required fields." },
         { status: 400 }
@@ -71,11 +92,34 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Integrate email service (e.g. Resend, Nodemailer) to send to RECIPIENT_EMAIL
-    // Include: name, email, phone, position, experience, currentCompany, linkedIn, coverMessage
-    // Attach the resume file (resume.arrayBuffer() or resume.stream()) to the email.
+    const emailBody = buildJsonFormEmailBody(
+      "RSA Tech — Careers application ( /api/careers )",
+      {
+        name,
+        email,
+        phone,
+        position,
+        experience,
+        currentCompany: currentCompany ?? "",
+        linkedIn: linkedIn ?? "",
+        coverMessage,
+        resumeFileName: resume.name,
+        resumeSizeBytes: resume.size,
+        resumeType: resume.type,
+        note:
+          "Resume file was uploaded with this request; attach from storage if you add file persistence.",
+        attribution,
+        submittedFrom: submittedFrom ?? "",
+      }
+    );
 
-    // Notify phone webhook with key details (without sending the file)
+    const emailResult = await sendFormNotificationEmail({
+      subject:
+        `Careers application: ${position} — ${name}` +
+        utmSubjectTag(attribution as FormAttribution | undefined),
+      text: emailBody,
+    });
+
     await notifyPhone({
       form: "careers",
       data: {
@@ -88,9 +132,10 @@ export async function POST(request: Request) {
         linkedIn,
         coverMessage,
       },
+      emailQueued: emailResult.ok,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, emailSent: emailResult.ok });
   } catch {
     return NextResponse.json(
       { error: "Failed to submit application." },

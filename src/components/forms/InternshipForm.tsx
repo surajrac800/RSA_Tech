@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { withFormTracking } from "@/lib/form-tracking";
 
 export function InternshipForm() {
   const [loading, setLoading] = useState(false);
@@ -71,12 +72,14 @@ export function InternshipForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.fullName,
-          email: data.email,
-          subject,
-          message: messageLines.join("\n"),
-        }),
+        body: JSON.stringify(
+          withFormTracking({
+            name: data.fullName,
+            email: data.email,
+            subject,
+            message: messageLines.join("\n"),
+          })
+        ),
       });
 
       if (res.ok) {

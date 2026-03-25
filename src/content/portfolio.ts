@@ -1,18 +1,9 @@
 import type { LucideIcon } from "lucide-react";
-import {
-  Megaphone,
-  Palette,
-  FileText,
-  Globe,
-  Code2,
-  Smartphone,
-  Sparkles,
-} from "lucide-react";
+import { Megaphone, Globe, Code2, Smartphone, Sparkles } from "lucide-react";
+import { companyStats } from "@/config/company-stats";
 
 export type PortfolioCategory =
   | "digital-marketing"
-  | "graphic-design"
-  | "content-writing"
   | "web-development"
   | "software-development"
   | "app-development"
@@ -30,20 +21,18 @@ export type PortfolioItem = {
   client?: string;
   industry?: string;
   description: string;
-  /** Proof: metrics (e.g. ad results) or image path for screenshots */
   proofMetrics?: ProofMetric[];
   proofImage?: string;
-  /** Live link or asset link */
   link?: string;
   linkLabel?: string;
   tools: string[];
 };
 
-/** Impact stats shown on portfolio page */
+/** Legacy export — same figures as companyStats (ProjectShowcase, etc.) */
 export const portfolioImpactStats = {
-  adAccountsManaged: "75+",
-  websitesDelivered: "550+",
-  appsDelivered: "90+",
+  adAccountsManaged: companyStats.activeAdCampaigns,
+  websitesDelivered: companyStats.websitesDelivered,
+  appsDelivered: companyStats.appsDelivered,
 } as const;
 
 export const portfolioCategories: {
@@ -55,180 +44,153 @@ export const portfolioCategories: {
 }[] = [
   {
     id: "digital-marketing",
-    label: "Digital Marketing",
-    shortLabel: "Ads & Campaigns",
+    label: "Digital marketing & content",
+    shortLabel: "Marketing",
     icon: Megaphone,
-    description: "Meta Ads, Google Ads, SEO and performance campaigns with measurable results.",
-  },
-  {
-    id: "graphic-design",
-    label: "Graphic Design",
-    shortLabel: "Design",
-    icon: Palette,
-    description: "Brand identity, social creatives, banners and visual content.",
-  },
-  {
-    id: "content-writing",
-    label: "Content Writing",
-    shortLabel: "Content",
-    icon: FileText,
-    description: "Blogs, copies, scripts and long-form content that converts.",
+    description:
+      "Performance campaigns, SEO, social, creatives and copy—the same stack as our Digital Marketing service page.",
   },
   {
     id: "web-development",
-    label: "Web Development",
-    shortLabel: "Web",
+    label: "Website development",
+    shortLabel: "Websites",
     icon: Globe,
-    description: "Websites, landing pages and web apps built for speed and conversion.",
+    description:
+      "Business sites, e‑commerce, landing pages and fast frontends—WordPress, Shopify, Next.js and more.",
   },
   {
     id: "software-development",
-    label: "Software Development",
+    label: "Software development",
     shortLabel: "Software",
     icon: Code2,
-    description: "Custom software, dashboards, automation and business tools.",
+    description:
+      "CRM-style tools, dashboards, workflows and automation aligned with our custom software offering.",
   },
   {
     id: "app-development",
-    label: "App Development",
+    label: "App development",
     shortLabel: "Apps",
     icon: Smartphone,
-    description: "Mobile and cross-platform apps for Android and iOS.",
+    description:
+      "Android and cross‑platform apps, including web‑to‑app—matching our App Development services.",
   },
   {
     id: "other",
-    label: "Other Projects",
+    label: "Strategy & special projects",
     shortLabel: "Other",
     icon: Sparkles,
-    description: "Consulting, audits and special projects.",
+    description:
+      "Audits, roadmaps and engagements that sit across disciplines.",
   },
 ];
 
 export const portfolioItems: PortfolioItem[] = [
-  // Digital Marketing – 75+ active Meta & Google Ads campaigns
   {
     id: "dm-1",
     category: "digital-marketing",
-    title: "Meta & Google Ads – 75+ Active Campaigns",
+    title: `Meta & Google Ads — ${companyStats.activeAdCampaigns} active campaigns`,
     client: "Multiple verticals",
-    industry: "Education, E-commerce, Services",
+    industry: "Education, e‑commerce, services",
     description:
-      "We currently run 75+ active Meta and Google Ads campaigns across education, retail, services and e-commerce. Full-funnel campaigns, lead gen, sales and brand awareness with measurable ROAS and CPA.",
+      "Ongoing Meta and Google Ads work across education, retail and services: lead gen, sales and brand campaigns with tracking and reporting—aligned with our delivery scale.",
     proofMetrics: [
-      { label: "Active campaigns", value: "75+" },
+      { label: "Active campaigns", value: companyStats.activeAdCampaigns },
       { label: "Platforms", value: "Meta & Google" },
     ],
     proofImage: "/portfolio/meta-ads-dashboard.png",
-    tools: ["Meta Ads Manager", "Google Ads", "Pixel", "Analytics"],
+    tools: ["Meta Ads", "Google Ads", "Pixel", "Analytics"],
   },
   {
     id: "dm-2",
     category: "digital-marketing",
-    title: "Google Ads – Search & Performance Max",
+    title: "Google Ads — search & Performance Max",
     client: "Local & national brands",
     industry: "Various",
     description:
-      "Search and Performance Max campaigns for local intent and e-commerce. Keyword strategy, landing page alignment and conversion tracking across 75+ campaigns.",
-    proofMetrics: [
-      { label: "Clicks", value: "12K+" },
-      { label: "Conv. Rate", value: "8.2%" },
-      { label: "CPA", value: "₹420" },
-    ],
-    proofImage: "/portfolio/google-ads-results.png",
-    tools: ["Google Ads", "Search", "PMax", "GA4"],
+      "Search and Performance Max setups for local intent and e‑commerce: structure, landing alignment and conversion tracking—without promising fixed CPAs on this overview.",
+    tools: ["Google Ads", "Search", "Performance Max", "GA4"],
   },
   {
     id: "dm-3",
     category: "digital-marketing",
-    title: "Social & Brand Awareness Campaigns",
-    client: "D2C & Retail",
-    industry: "E-commerce",
+    title: "Social & brand campaigns",
+    client: "D2C & retail",
+    industry: "E‑commerce",
     description:
-      "Awareness and retargeting campaigns with custom creatives. Improved brand recall and lower cost per add-to-cart across multiple managed accounts.",
-    proofMetrics: [
-      { label: "Reach", value: "1.2M" },
-      { label: "CTR", value: "2.1%" },
-    ],
-    tools: ["Meta", "Instagram", "Creative Studio"],
+      "Awareness and retargeting with creatives tied to product and seasonality; reporting focused on reach, frequency and downstream conversions.",
+    tools: ["Meta", "Instagram", "Creative production"],
   },
-  // Graphic Design
   {
     id: "gd-1",
-    category: "graphic-design",
-    title: "Brand Identity & Logo Suite",
+    category: "digital-marketing",
+    title: "Brand identity & logo suite",
     client: "Startup",
-    industry: "Tech",
+    industry: "Technology",
     description:
-      "Complete brand identity: logo, color palette, typography and usage guidelines for web and print.",
-    tools: ["Canva", "Figma", "Adobe Illustrator"],
+      "Logo, palette, typography and usage notes for web and print—usually bundled with site or campaign launches.",
+    tools: ["Figma", "Illustrator", "Brand guidelines"],
   },
   {
     id: "gd-2",
-    category: "graphic-design",
-    title: "Social Media Creatives & Banners",
-    client: "Retail Brand",
+    category: "digital-marketing",
+    title: "Social creatives & ad formats",
+    client: "Retail brand",
     industry: "Retail",
     description:
-      "Monthly social creatives, story templates and promotional banners aligned with campaigns and seasons.",
-    tools: ["Canva", "Photoshop", "Figma"],
+      "Stories, feeds and display-style assets aligned to Meta/Google specs and your media plan.",
+    tools: ["Figma", "Canva", "Photoshop"],
   },
   {
     id: "gd-3",
-    category: "graphic-design",
-    title: "Ad Creatives for Meta & Google",
-    client: "Multiple Clients",
+    category: "digital-marketing",
+    title: "Campaign creatives (static & carousel)",
+    client: "Multiple clients",
     industry: "Various",
     description:
-      "High-converting ad creatives (carousels, single image, video thumbnails) for lead gen and sales campaigns.",
-    tools: ["Figma", "Canva", "Meta Creative Hub"],
+      "Creatives for lead and sales campaigns—iterations based on performance feedback from live ads.",
+    tools: ["Figma", "Meta Creative Hub"],
   },
-  // Content Writing
   {
     id: "cw-1",
-    category: "content-writing",
-    title: "SEO Blog Series & Website Copy",
-    client: "B2B Service Provider",
+    category: "digital-marketing",
+    title: "SEO blogs & service copy",
+    client: "B2B service provider",
     industry: "B2B",
     description:
-      "20+ SEO-optimized blog posts and service page copy. Improved organic traffic and time on site.",
-    proofMetrics: [
-      { label: "Posts", value: "20+" },
-      { label: "Organic Growth", value: "45%" },
-    ],
-    tools: ["SEO", "WordPress", "Ahrefs"],
+      "Long-form and service pages tuned for search intent; outcomes depend on niche—we scope keywords and cadence with you.",
+    tools: ["SEO", "WordPress", "Content briefs"],
   },
   {
     id: "cw-2",
-    category: "content-writing",
-    title: "Ad Copy & Landing Page Copy",
-    client: "E-commerce & Education",
+    category: "digital-marketing",
+    title: "Ad & landing page copy",
+    client: "E‑commerce & education",
     industry: "Multiple",
     description:
-      "Headlines, ad copy and landing page content for Meta and Google campaigns. Focus on clarity and conversion.",
-    tools: ["Copywriting", "A/B Testing"],
+      "Headlines and body copy for paid traffic: clarity, CTA alignment and variant testing where we run the campaigns.",
+    tools: ["Copy", "Landing structure", "A/B review"],
   },
   {
     id: "cw-3",
-    category: "content-writing",
-    title: "Scripts & Long-Form Content",
+    category: "digital-marketing",
+    title: "Scripts & nurture content",
     client: "EdTech",
     industry: "Education",
     description:
-      "Video scripts, email sequences and long-form guides for nurturing and product launches.",
-    tools: ["Scripts", "Email", "Notion"],
+      "Video scripts, email sequences and guides for launches and onboarding flows.",
+    tools: ["Scripts", "Email", "Documentation"],
   },
-  // Web Development – 550+ websites delivered (WordPress, Shopify, etc.)
   {
     id: "web-1",
     category: "web-development",
-    title: "550+ Websites Delivered",
-    client: "MSMEs, Startups, Brands",
+    title: `${companyStats.websitesDelivered} websites delivered`,
+    client: "MSMEs, startups, brands",
     industry: "Various",
     description:
-      "More than 550 websites delivered and live — built on WordPress, Shopify, Next.js and other technologies. E-commerce, landing pages, business sites and lead funnels with ads and analytics integration.",
+      "Corporate sites, e‑commerce, landers and funnel pages on WordPress, Shopify, Next.js and related stacks—with analytics and form/WhatsApp hooks where needed.",
     proofMetrics: [
-      { label: "Websites", value: "550+" },
-      { label: "Tech", value: "WordPress, Shopify & more" },
+      { label: "Websites", value: companyStats.websitesDelivered },
+      { label: "Stack", value: "WordPress, Shopify, Next.js" },
     ],
     proofImage: "/portfolio/websites-delivered.png",
     tools: ["WordPress", "Shopify", "Next.js", "Tailwind"],
@@ -236,67 +198,65 @@ export const portfolioItems: PortfolioItem[] = [
   {
     id: "web-2",
     category: "web-development",
-    title: "E-commerce & Catalog Sites",
+    title: "E‑commerce & catalogue sites",
     client: "Retail & D2C",
     industry: "Retail",
     description:
-      "Fast, mobile-first e-commerce and catalog websites with product listings, enquiry forms and integration with Meta/Google Ads.",
+      "Product catalogues, checkout or lead pathways, and integration hooks for ads and CRM.",
     link: "#",
-    linkLabel: "View samples",
+    linkLabel: "Discuss similar build",
     tools: ["WordPress", "Shopify", "WooCommerce"],
   },
   {
     id: "web-3",
     category: "web-development",
-    title: "Landing Pages & Lead Funnels",
-    client: "Education & Services",
+    title: "Landing pages & lead funnels",
+    client: "Education & services",
     industry: "Multiple",
     description:
-      "Conversion-optimized landing pages with forms, WhatsApp and CRM integration for campaign traffic across 550+ delivered projects.",
-    tools: ["Next.js", "React", "Form backend"],
+      "Conversion-focused pages for paid and organic traffic: forms, tracking and hand-off to your sales process.",
+    tools: ["Next.js", "React", "Forms & APIs"],
   },
-  // Software Development
   {
     id: "soft-1",
     category: "software-development",
-    title: "Custom Dashboard & Reporting",
-    client: "Logistics Startup",
+    title: "Operations dashboards & reporting",
+    client: "Logistics startup",
     industry: "Logistics",
     description:
-      "Internal dashboard for operations and reporting. Real-time data and export for decision-making.",
+      "Internal views for live operations, exports and role-based access—typical of our custom software engagements.",
     tools: ["React", "Node.js", "PostgreSQL"],
   },
   {
     id: "soft-2",
     category: "software-development",
-    title: "CRM & Lead Management Tool",
-    client: "Real Estate Group",
-    industry: "Real Estate",
+    title: "CRM & pipeline tools",
+    client: "Real estate group",
+    industry: "Real estate",
     description:
-      "Custom CRM for leads, follow-ups and pipeline visibility. Integrated with WhatsApp and email.",
-    tools: ["Node.js", "React", "REST API"],
+      "Lead stages, follow-ups and hand-offs; integrations with WhatsApp and email where the client needs it.",
+    tools: ["Node.js", "React", "REST APIs"],
   },
   {
     id: "soft-3",
     category: "software-development",
-    title: "Automation & Workflow Tools",
+    title: "Workflow & inventory helpers",
     client: "Manufacturing MSME",
     industry: "Manufacturing",
     description:
-      "Workflow automation for orders, inventory and notifications. Reduced manual data entry and errors.",
-    tools: ["Node.js", "Automation", "DB"],
+      "Lightweight workflows for orders and stock with fewer manual steps—scoped to the team’s actual process.",
+    tools: ["Node.js", "Automation", "Database"],
   },
-  // App Development – 90+ apps successfully delivered
   {
     id: "app-1",
     category: "app-development",
-    client: "Marketplaces, Distribution, Services",
+    title: `${companyStats.appsDelivered} apps developed`,
+    client: "Marketplaces, distribution, services",
     industry: "Various",
-    title: "90+ Apps Successfully Developed",
     description:
-      "90+ mobile and cross-platform apps delivered and live — from services marketplaces and order management to booking and customer apps. Android, PWA and hybrid solutions.",
+      "Android, PWA and hybrid apps for bookings, catalogues, field workflows and customer access—consistent with our app development positioning.",
     proofMetrics: [
-      { label: "Apps", value: "90+" },
+      { label: "Apps", value: companyStats.appsDelivered },
       { label: "Platforms", value: "Android, PWA" },
     ],
     proofImage: "/portfolio/apps-delivered.png",
@@ -305,36 +265,31 @@ export const portfolioItems: PortfolioItem[] = [
   {
     id: "app-2",
     category: "app-development",
-    title: "Services Marketplace App",
-    client: "Local Services",
+    title: "Services marketplace app",
+    client: "Local services",
     industry: "Marketplace",
     description:
-      "Cross-platform app for vendors and customers: listings, bookings, chat and payments.",
-    proofMetrics: [
-      { label: "Platform", value: "Android" },
-      { label: "Users", value: "5K+" },
-    ],
+      "Vendor and customer flows: listings, bookings and notifications—architecture sized to your phase-one scope.",
     tools: ["React Native", "Node.js", "Firebase"],
   },
   {
     id: "app-3",
     category: "app-development",
-    title: "Customer & Order Management App",
-    client: "Distribution Business",
+    title: "Field order & collection app",
+    client: "Distribution business",
     industry: "Distribution",
     description:
-      "Mobile app for field staff: order entry, collection and sync with backend. Offline support. Part of our 90+ delivered apps.",
-    tools: ["React Native", "Sync", "API"],
+      "Mobile workflows for orders and collections with API sync—offline behaviour scoped per project.",
+    tools: ["React Native", "REST API"],
   },
-  // Other
   {
     id: "other-1",
     category: "other",
-    title: "Digital Audit & Strategy",
+    title: "Digital audit & roadmap",
     client: "MSME",
     industry: "Various",
     description:
-      "Full digital audit: website, ads, SEO and social. Delivered roadmap and quick wins.",
-    tools: ["Audit", "Strategy", "Reporting"],
+      "Website, ads and SEO snapshot with a phased plan—often the entry before a larger build or retainer.",
+    tools: ["Audit", "Roadmap", "Reporting"],
   },
 ];

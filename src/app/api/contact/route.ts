@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
+import type { FormAttribution } from "@/lib/attribution";
+import { utmSubjectTag } from "@/lib/attribution";
+import {
+  buildJsonFormEmailBody,
+  sendFormNotificationEmail,
+} from "@/lib/send-form-email";
 
-const RECIPIENT_EMAIL = "support@rsatechsoftware.in";
 const NOTIFY_PHONE = "+919267917752";
 
 async function notifyPhone(payload: unknown) {
@@ -26,17 +31,26 @@ async function notifyPhone(payload: unknown) {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as Record<string, unknown>;
 
-    // TODO: Integrate email service (e.g. Resend, Nodemailer) to send to RECIPIENT_EMAIL
+    const attr = body.attribution as FormAttribution | undefined;
+    const subject =
+      String(body.subject ?? "RSA Tech — Website form submission") +
+      utmSubjectTag(attr);
+    const text = buildJsonFormEmailBody(
+      "RSA Tech — Website form ( /api/contact )",
+      body
+    );
 
-    // Send a copy of the submission to the configured phone webhook
+    const emailResult = await sendFormNotificationEmail({ subject, text });
+
     await notifyPhone({
       form: "contact",
       data: body,
+      emailQueued: emailResult.ok,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, emailSent: emailResult.ok });
   } catch {
     return NextResponse.json(
       { error: "Failed to send message" },
