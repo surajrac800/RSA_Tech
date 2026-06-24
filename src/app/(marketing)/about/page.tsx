@@ -42,6 +42,22 @@ const values = [
   },
 ];
 
+const leadership = [
+  {
+    name: "Suraj Kr. Chaurasiya",
+    role: "Managing Director",
+    bio: "Suraj started RSA Tech Softwares in 2018 and has since led the studio across product, technology and growth. With a deep understanding of both code and business, he brings product thinking, performance marketing and automation together to create systems that actually move the P&L.",
+    focus: ["Vision & Strategy", "Product & Technology", "Growth Systems"],
+    image: leaderPhoto,
+  },
+  {
+    name: "Ashish Jaiswal",
+    role: "Co-Founder",
+    bio: "Ashish brings a strong focus on delivery, operations and client success. He ensures that every website, app and campaign launched by RSA Tech Softwares is reliable, on time and aligned with measurable outcomes.",
+    focus: ["Delivery & Operations", "Client Success", "Process Improvement"],
+    image: cofounder,
+  },
+];
 
 const stats = [
   {
@@ -306,10 +322,48 @@ export default function AboutPage() {
         </div>
       </SectionShell>
 
+      <SectionShell className="bg-linear-to-b from-amber-50/20 via-white to-white">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="marketing-eyebrow">Our journey</p>
+            <h2 className="marketing-heading mt-3">From studio to long-term partner</h2>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
+            {[
+              {
+                y: "2018",
+                t: "RSA Tech Softwares is founded",
+                b: "Suraj Kr. Chaurasiya and Ashish Jaiswal launch the studio with a focus on MSMEs and local businesses.",
+              },
+              {
+                y: "2020",
+                t: "Expanding capabilities",
+                b: "Performance marketing, automation and analytics join delivery—many clients get a single partner.",
+              },
+              {
+                y: "2022",
+                t: "Product mindset",
+                b: "Reusable components, design patterns and internal tools improve speed and consistency.",
+              },
+              {
+                y: "Today",
+                t: "Integrated growth partner",
+                b: "Supporting startups and MSMEs across India with coordinated tech, design and campaigns.",
+              },
+            ].map((j) => (
+              <div
+                key={j.y}
+                className="rounded-2xl border-2 border-amber-400/50 bg-white p-5 shadow-sm"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#F76902]">{j.y}</p>
+                <p className="mt-3 font-semibold text-neutral-900">{j.t}</p>
+                <p className="mt-2 text-xs leading-relaxed text-neutral-600">{j.b}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </SectionShell>
 
-
-      
-      
       <SectionShell>
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
