@@ -16,7 +16,7 @@ export default function HomePage() {
       <Services />
       <About />
       <TechnologyExpertise />
-      <ManagingDirectorSection />
+      {/* <ManagingDirectorSection /> */}
       <WhyUs />
       <Process />
       <Testimonials />
