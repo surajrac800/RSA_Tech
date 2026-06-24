@@ -322,7 +322,7 @@ export default function AboutPage() {
         </div>
       </SectionShell>
 
-      <SectionShell className="bg-linear-to-b from-amber-50/20 via-white to-white">
+      {/* <SectionShell className="bg-linear-to-b from-amber-50/20 via-white to-white">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="marketing-eyebrow">Our journey</p>
@@ -362,7 +362,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </SectionShell>
+      </SectionShell> */}
 
       <SectionShell>
         <div className="mx-auto max-w-6xl">
