@@ -42,22 +42,22 @@ const values = [
   },
 ];
 
-// const leadership = [
-//   {
-//     name: "Suraj Kr. Chaurasiya",
-//     role: "Managing Director",
-//     bio: "Suraj started RSA Tech Softwares in 2018 and has since led the studio across product, technology and growth. With a deep understanding of both code and business, he brings product thinking, performance marketing and automation together to create systems that actually move the P&L.",
-//     focus: ["Vision & Strategy", "Product & Technology", "Growth Systems"],
-//     image: leaderPhoto,
-//   },
-//   {
-//     name: "Ashish Jaiswal",
-//     role: "Co-Founder",
-//     bio: "Ashish brings a strong focus on delivery, operations and client success. He ensures that every website, app and campaign launched by RSA Tech Softwares is reliable, on time and aligned with measurable outcomes.",
-//     focus: ["Delivery & Operations", "Client Success", "Process Improvement"],
-//     image: cofounder,
-//   },
-// ];
+const leadership = [
+  {
+    name: "Suraj Kr. Chaurasiya",
+    role: "Managing Director",
+    bio: "Suraj started RSA Tech Softwares in 2018 and has since led the studio across product, technology and growth. With a deep understanding of both code and business, he brings product thinking, performance marketing and automation together to create systems that actually move the P&L.",
+    focus: ["Vision & Strategy", "Product & Technology", "Growth Systems"],
+    image: leaderPhoto,
+  },
+  {
+    name: "Ashish Jaiswal",
+    role: "Co-Founder",
+    bio: "Ashish brings a strong focus on delivery, operations and client success. He ensures that every website, app and campaign launched by RSA Tech Softwares is reliable, on time and aligned with measurable outcomes.",
+    focus: ["Delivery & Operations", "Client Success", "Process Improvement"],
+    image: cofounder,
+  },
+];
 
 const stats = [
   {
@@ -322,7 +322,7 @@ export default function AboutPage() {
         </div>
       </SectionShell>
 
-       <SectionShell className="bg-linear-to-b from-amber-50/20 via-white to-white">
+      <SectionShell className="bg-linear-to-b from-amber-50/20 via-white to-white">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="marketing-eyebrow">Our journey</p>
